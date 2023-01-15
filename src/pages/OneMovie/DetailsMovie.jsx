@@ -8,13 +8,20 @@ export default function DetailsMovie() {
     const [error, setError] = useState('');
 
     const { id } = useParams();
-    console.log(id);
     const navigate = useNavigate();
 
     const location = useLocation();
-   
+    
+    const isTrailerPage = location.pathname.includes('video');
+    const trailerLink = isTrailerPage ? `/movies/${id}` : `/movies/${id}/video`
     const isCastPage = location.pathname.includes('cast');
     const castLink = isCastPage ? `/movies/${id}` : `/movies/${id}/cast`;
+    const isRewiesPage = location.pathname.includes('rewies');
+    const rewiesLink = isRewiesPage ? `/movies/${id}` : `/movies/${id}/rewies`;
+
+
+    const from = location.state?.from || '/movies';
+    console.log(from);
 
     useEffect(() => {
         
@@ -34,9 +41,8 @@ export default function DetailsMovie() {
         fetchMovieDetails();
     }, [id]);
 
-    const goBack =() => navigate(-1);
+    const goBack =() => navigate(from);
     const goMovies = () => navigate('/movies');
-    const videoLink = `movies/:${id}/video`;
 
     return (
         <>
@@ -45,9 +51,9 @@ export default function DetailsMovie() {
             <p>Details one movie</p>
             {state && <img src={`https://image.tmdb.org/t/p/w500${state.poster_path}`} width="100px" height="100px" alt={state.tagline} />}
             <ul>
-                <li><NavLink to={`/movies/${id}/video`}>Movie trailer</NavLink></li>
-                <li><NavLink to={`/movies/${id}/cast`}>Actors list</NavLink></li>
-                <li><NavLink to={`/movies/${id}/rewies`}>Rewies movie</NavLink></li>
+                <li><NavLink state={{ from }} to={trailerLink}>Movie trailer</NavLink></li>
+                <li><NavLink state={{ from }} to={castLink}>Actors list</NavLink></li>
+                <li><NavLink state={{ from }} to={rewiesLink}>Rewies movie</NavLink></li>
             </ul>
             <Outlet />
             
