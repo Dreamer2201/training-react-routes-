@@ -6,8 +6,8 @@ export default function NavMenu() {
         <>
             <ConteinerNavLinks>
                 <StyledNavLink to="/">Home</StyledNavLink>
-                <StyledNavLink to="/about">About</StyledNavLink>
-                <StyledNavLink to="/projects">Projects</StyledNavLink>
+                <StyledNavLink to="/movies">Movies</StyledNavLink>
+                <StyledNavLink to="/library">My library</StyledNavLink>
                 <StyledNavLink to="/contacts">Contacts</StyledNavLink>
             </ConteinerNavLinks>
         </>

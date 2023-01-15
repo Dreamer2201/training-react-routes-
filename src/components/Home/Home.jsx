@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchTrendingMovies } from "api/fetchAPI";
-import MoviesTrendingList from "./MoviesTrendingList";
+import MoviesList from "components/share/MoviesList";
 
 export default function Home() {
     const [movies, setMovies] = useState([]);
@@ -8,9 +8,8 @@ export default function Home() {
         const resultFetch = async () => {
             try {
                 const result = await fetchTrendingMovies();
-                setMovies({
-                    movies: result.results
-                });
+                const moviesArr = result.results;
+                setMovies([...moviesArr]);
                 
             return result;
 
@@ -21,13 +20,10 @@ export default function Home() {
         resultFetch();
         
     }, [])
-    
-    
-    
 
     return (
         <div>
-            <MoviesTrendingList items = {movies} />
+            <MoviesList items = {movies} />
         </div>
     )
 }
